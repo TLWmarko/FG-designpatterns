@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	Rigidbody rb;
-	float speed = 10f;
+	float speed = 22f;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,4 +14,10 @@ public class Bullet : MonoBehaviour
 
 		Destroy(gameObject, 5f);
     }
+
+	private void OnCollisionEnter(Collision collision) {
+		if (collision.collider.GetComponent<Player>() != null) {
+			Destroy(collision.gameObject);
+		}
+	}
 }

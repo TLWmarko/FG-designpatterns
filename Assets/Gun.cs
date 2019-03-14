@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
 	public GameObject bullet;
 
 	float shootTime;
-	float shootInterval = 0.2f;
+	float shootInterval = 0.1f;
 
     // Update is called once per frame
     void Update()
