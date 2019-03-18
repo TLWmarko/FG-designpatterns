@@ -10,20 +10,26 @@ public class Player : MonoBehaviour
 	public KeyCode turnRightKey;
 
 	public KeyCode shootKey;
-	public Gun gun;
 
+	const float MOVESPEED = 8f;
+	const float TURNSPEED = 20f;
+
+	Gun gun;
 	Rigidbody rb;
-	float speed = 8f;
-	float turnSpeed = 20f;
+	Renderer[] renderers;
 
 	bool alive = true;
 	float killTime;
-	Renderer[] renderers;
+
+	[System.NonSerialized]
+	public int frags;
 	// Start is called before the first frame update
 	void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		renderers = GetComponentsInChildren<Renderer>();
+		gun = GetComponentInChildren<Gun>();
+		gun.owner = this;
     }
 	
 
@@ -43,21 +49,21 @@ public class Player : MonoBehaviour
 			return;
 
 		if(Input.GetKey(forwardKey)) {
-			rb.AddRelativeForce(Vector3.forward * speed, ForceMode.Acceleration);
+			rb.AddRelativeForce(Vector3.forward * MOVESPEED, ForceMode.Acceleration);
 		}
 		else if(Input.GetKey(backKey)) {
-			rb.AddRelativeForce(Vector3.back * speed, ForceMode.Acceleration);
+			rb.AddRelativeForce(Vector3.back * MOVESPEED, ForceMode.Acceleration);
 		}
 
 		if(Input.GetKey(turnLeftKey)) {
-			rb.AddRelativeTorque(Vector3.down * turnSpeed, ForceMode.Acceleration);
+			rb.AddRelativeTorque(Vector3.down * TURNSPEED, ForceMode.Acceleration);
 		}
 		else if(Input.GetKey(turnRightKey)) {
-			rb.AddRelativeTorque(Vector3.up * turnSpeed, ForceMode.Acceleration);
+			rb.AddRelativeTorque(Vector3.up * TURNSPEED, ForceMode.Acceleration);
 		}
 	}
 
-	public void Kill() {
+	public void Kill(Player attacker) {
 		killTime = Time.time + 1f;
 		rb.isKinematic = true;
 		rb.detectCollisions = false;
@@ -65,6 +71,8 @@ public class Player : MonoBehaviour
 			r.enabled = false;
 		}
 		alive = false;
+		if (attacker)
+			attacker.GotKill();
 	}
 
 	void Respawn() {
@@ -80,5 +88,13 @@ public class Player : MonoBehaviour
 		var selectedPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 		transform.position = selectedPoint.transform.position;
 		transform.rotation = selectedPoint.transform.rotation;
+	}
+
+	//
+	// GameHandler stuff
+	//
+	void GotKill() {
+		frags++;
+		GameHandler.GetInstance().TryUpdateFragLeader(this);
 	}
 }

@@ -7,10 +7,12 @@ public class Bullet : MonoBehaviour
 	Rigidbody rb;
 	float speed = 22f;
 
+	public Player owner;
+
 	private void OnCollisionEnter(Collision collision) {
 		var player = collision.collider.GetComponent<Player>();
 		if(player != null) {
-			player.Kill();
+			player.Kill(owner);
 		}
 	}
 

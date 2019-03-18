@@ -7,7 +7,7 @@ public class Killtrigger : MonoBehaviour
 	private void OnCollisionEnter(Collision collision) {
 		var player = collision.collider.GetComponent<Player>();
 		if(player != null) {
-			player.Kill();
+			player.Kill(null);
 		}
 	}
 }

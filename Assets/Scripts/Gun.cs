@@ -8,18 +8,21 @@ public class Gun : MonoBehaviour
 
 	float shootTime;
 	float shootInterval = 0.1f;
-	
+
+	[System.NonSerialized]
+	public Player owner;
 
 	//
 	// Normal
 	//
 	public void Shoot() {
 		if(shootTime <= Time.time) {
-			Instantiate(bullet, transform.position, transform.rotation);
+			var b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+			b.owner = owner;
 			shootTime = Time.time + shootInterval;
 		}
 	}
-	
+
 
 
 
@@ -34,6 +37,7 @@ public class Gun : MonoBehaviour
 	void Start() {
 		for(int i = 0; i < bulletPool.Length; i++) {
 			bulletPool[i] = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+			bulletPool[i].owner = owner;
 			bulletPool[i].poolOwner = this;
 			bulletPool[i].gameObject.SetActive(false);
 		}
@@ -71,6 +75,7 @@ public class Gun : MonoBehaviour
 	void Start() {
 		for(int i = 0; i < bulletPool.Length; i++) {
 			bulletPool[i] = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+			bulletPool[i].owner = owner;
 			bulletPool[i].poolOwner = this;
 			bulletPool[i].gameObject.SetActive(false);
 		}
