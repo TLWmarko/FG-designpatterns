@@ -6,18 +6,82 @@ public class Bullet : MonoBehaviour
 {
 	Rigidbody rb;
 	float speed = 22f;
-    // Start is called before the first frame update
-    void Start()
+
+	private void OnCollisionEnter(Collision collision) {
+		var player = collision.collider.GetComponent<Player>();
+		if(player != null) {
+			player.Kill();
+		}
+	}
+
+	//
+	// Normal
+	//
+	void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		rb.AddRelativeForce(Vector3.forward * speed, ForceMode.VelocityChange);
 
-		Destroy(gameObject, 5f);
+		Destroy(gameObject, 3f);
     }
 
-	private void OnCollisionEnter(Collision collision) {
-		if (collision.collider.GetComponent<Player>() != null) {
-			Destroy(collision.gameObject);
-		}
+	
+	
+
+	
+
+
+	//
+	// Pooled 1
+	//
+	/*
+	private void Awake() {
+		rb = GetComponent<Rigidbody>();
 	}
+
+	public void Launch() {
+		rb.velocity = transform.forward * speed;
+		StopAllCoroutines();
+		StartCoroutine(ReturnToPoolAfterAWhile());
+	}
+
+	IEnumerator ReturnToPoolAfterAWhile() {
+		yield return new WaitForSeconds(3f);
+		poolOwner.ReturnBullet(poolIndex);
+	}
+
+	[System.NonSerialized]
+	public Gun poolOwner;
+	[System.NonSerialized]
+	public int poolIndex;
+	*/
+
+
+
+
+
+	//
+	// Pooled 2
+	//
+	/*
+	private void Awake() {
+		rb = GetComponent<Rigidbody>();
+	}
+
+	public void Launch() {
+		rb.velocity = transform.forward * speed;
+		StopAllCoroutines();
+		StartCoroutine(DisableAfterAWhile());
+	}
+
+	IEnumerator DisableAfterAWhile() {
+		yield return new WaitForSeconds(3f);
+		gameObject.SetActive(false);
+	}
+	
+	[System.NonSerialized]
+	public Gun poolOwner;
+	[System.NonSerialized]
+	public int poolIndex;
+	*/
 }
