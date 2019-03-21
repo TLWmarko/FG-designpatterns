@@ -18,11 +18,21 @@ public class Player : MonoBehaviour
 	Rigidbody rb;
 	Renderer[] renderers;
 
-	bool alive = true;
 	float killTime;
+
+
+	public static List<Player> players = new List<Player>();
+	private void OnEnable() {
+		players.Add(this);
+	}
+	private void OnDisable() {
+		players.Remove(this);
+	}
 
 	[System.NonSerialized]
 	public int frags;
+	[System.NonSerialized]
+	public bool alive = true;
 	// Start is called before the first frame update
 	void Start()
     {
