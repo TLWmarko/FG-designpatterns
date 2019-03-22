@@ -12,11 +12,9 @@ public class Mine : MonoBehaviour
 	[System.NonSerialized]
 	public Rigidbody rb;
 	
-    // Start is called before the first frame update
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
-		//think = Think;
 
 		detectState.Start(this);
 		idleState.Start(this);
@@ -25,13 +23,10 @@ public class Mine : MonoBehaviour
 		currentState = idleState;
 		currentState.Enter();
     }
-
-    // Update is called once per frame
+	
     void Update()
     {
-		currentState.Update();
-
-		//think();
+		currentState.Update(Time.deltaTime);
     }
 
 	private void OnCollisionEnter(Collision collision) {
@@ -41,15 +36,4 @@ public class Mine : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
-	/*
-	System.Action think;
-	void Think() {
-		think = Think2;
-	}
-
-	void Think2() {
-
-	}
-	*/
 }
