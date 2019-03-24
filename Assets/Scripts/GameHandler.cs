@@ -16,6 +16,8 @@ public class GameHandler : MonoBehaviour
 		}
 	}
 	public void TryUpdateFragLeader(Player instigator) {
+		if(!instigator)
+			return;
 		if(instigator.frags > fragLeader.frags)
 			fragLeader = instigator;
 	}
