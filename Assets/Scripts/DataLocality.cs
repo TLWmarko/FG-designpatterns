@@ -17,9 +17,13 @@ class DataLocality : MonoBehaviour {
 		ProjectileStruct[] projectileStructs = new ProjectileStruct[count];
 		ProjectileClass[] projectileClasses = new ProjectileClass[count];
 		for(int i = 0; i < count; ++i) {
+			//class
 			projectileClasses[i] = new ProjectileClass();
-			projectileStructs[i] = new ProjectileStruct();
+			projectileClasses[i].Velocity = UnityEngine.Random.onUnitSphere;
+			//struct
+			projectileStructs[i].Velocity = UnityEngine.Random.onUnitSphere;
 		}
+		// Shuffle to simulate objects being destroyed and created anew
 		Shuffle(projectileStructs);
 		Shuffle(projectileClasses);
 

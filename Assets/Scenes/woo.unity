@@ -123,12 +123,12 @@ GameObject:
   - component: {fileID: 107974790}
   - component: {fileID: 107974789}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Data Locality Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &107974789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,6 +768,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mine_v2
+      objectReference: {fileID: 0}
+    - target: {fileID: 175774115777343884, guid: d03035d43df5a8c4c8119a81e7664a9b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235062647348329826, guid: d03035d43df5a8c4c8119a81e7664a9b,
         type: 3}
