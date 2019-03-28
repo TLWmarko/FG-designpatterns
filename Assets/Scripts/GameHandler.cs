@@ -6,6 +6,7 @@ public class GameHandler : MonoBehaviour
 {
 	float timer = 0;
 	const float TIMELIMIT = 600f; // 10 minutes
+	const int FRAGLIMIT = 10;
 
 	Player fragLeader = null;
 
@@ -20,6 +21,8 @@ public class GameHandler : MonoBehaviour
 			return;
 		if(fragLeader == null || instigator.frags > fragLeader.frags)
 			fragLeader = instigator;
+		if(fragLeader.frags >= FRAGLIMIT)
+			EndGame();
 	}
 	void EndGame() {
 		Debug.LogFormat("{0} wins with {1} frags!", fragLeader.name, fragLeader.frags);
