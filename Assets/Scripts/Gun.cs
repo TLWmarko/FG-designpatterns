@@ -13,8 +13,9 @@ public class Gun : MonoBehaviour
 	public Player owner;
 
 	//
-	// Normal
+	// No pool
 	//
+	
 	public void Shoot() {
 		if(shootTime <= Time.time) {
 			var b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
@@ -22,13 +23,13 @@ public class Gun : MonoBehaviour
 			shootTime = Time.time + shootInterval;
 		}
 	}
-
+	
 
 
 
 
 	//
-	// Pooled 1
+	// Pooled 1 (more "pure")
 	//
 	/*
 	Bullet[] bulletPool = new Bullet[10];
@@ -37,6 +38,7 @@ public class Gun : MonoBehaviour
 	void Start() {
 		for(int i = 0; i < bulletPool.Length; i++) {
 			bulletPool[i] = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+			bulletPool[i].name = "Bullet (pooled) " + i.ToString();
 			bulletPool[i].owner = owner;
 			bulletPool[i].poolOwner = this;
 			bulletPool[i].gameObject.SetActive(false);
@@ -57,13 +59,16 @@ public class Gun : MonoBehaviour
 
 	public void ReturnBullet(int index) {
 		bulletPoolFreeIndex--;
-		var tempBullet = bulletPool[index];
-		bulletPool[index] = bulletPool[bulletPoolFreeIndex];
+		var returningBullet = bulletPool[index];
+		bulletPool[index] = bulletPool[bulletPoolFreeIndex]; // swap places with the last bullet currently in use
 		bulletPool[index].poolIndex = index;
-		bulletPool[bulletPoolFreeIndex] = tempBullet;
-		bulletPool[bulletPoolFreeIndex].gameObject.SetActive(false);
+		bulletPool[bulletPoolFreeIndex] = returningBullet;
+		returningBullet.gameObject.SetActive(false);
 	}
 	*/
+
+
+
 
 	//
 	// Pooled 2
@@ -75,6 +80,7 @@ public class Gun : MonoBehaviour
 	void Start() {
 		for(int i = 0; i < bulletPool.Length; i++) {
 			bulletPool[i] = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+			bulletPool[i].name = "Bullet (pooled) " + i.ToString();
 			bulletPool[i].owner = owner;
 			bulletPool[i].poolOwner = this;
 			bulletPool[i].gameObject.SetActive(false);

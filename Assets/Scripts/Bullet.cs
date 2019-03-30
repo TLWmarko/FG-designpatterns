@@ -17,8 +17,9 @@ public class Bullet : MonoBehaviour
 	}
 
 	//
-	// Normal
+	// No pool
 	//
+	
 	void Start()
     {
 		rb = GetComponent<Rigidbody>();
@@ -26,7 +27,7 @@ public class Bullet : MonoBehaviour
 
 		Destroy(gameObject, 3f);
     }
-
+	
 	
 	
 

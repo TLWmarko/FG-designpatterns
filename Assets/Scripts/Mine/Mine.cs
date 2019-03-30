@@ -19,9 +19,8 @@ public class Mine : MonoBehaviour
 		detectState.Start(this);
 		idleState.Start(this);
 		attackState.Start(this);
-
-		currentState = idleState;
-		currentState.Enter();
+		
+		idleState.Enter();
     }
 	
     void Update()
