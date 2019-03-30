@@ -42,10 +42,15 @@ public class GameHandler : MonoBehaviour
 		instance = this;
 	}
 	// called when exiting the scene
+	// important to call to release resources that might be in use by the handler
 	void OnDestroy() {
 		instance = null;
 	}
 	
+
+
+
+
 	//
 	// Lazy Init 1
 	//
@@ -56,23 +61,25 @@ public class GameHandler : MonoBehaviour
 			instance = new GameObject("GameHandler").AddComponent<GameHandler>();
 		return instance;
 	}
-	
+
 	// called when exiting the scene
+	// important to call to release resources that might be in use by the handler
 	void OnDestroy() {
 		instance = null;
 	}
 	*/
 
 	//
-	// Lazy Init 2 (need dontdestroy prob)
+	// Lazy Init 2 (C# static constructor variant) (probably requires DontDestroyOnLoad)
 	//
 	/*
+	static GameHandler instance;
+	public static GameHandler GetInstance() {
+		return instance;
+	}
 	static GameHandler() { // creates singleton when attempting to access
 		instance = new GameObject("GameHandler").AddComponent<GameHandler>();
-	}
-	// called when exiting the scene
-	void OnDestroy() {
-		instance = null;
+		//DontDestroyOnLoad(instance.gameObject);
 	}
 	*/
 }
